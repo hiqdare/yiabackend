@@ -5,21 +5,21 @@ const bodyParser = require('body-parser');
 
 const healthRoutes = require('./routes/health-route');
 const swaggerRoutes = require('./routes/swagger-route');
-//const testAPI = require('./routes/testAPI');
+const testAPI = require('./routes/testAPI');
 
-//const cors = require('cors');
+const cors = require('cors');
 
 const app = express();
 
 // enable parsing of http request body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-//app.use(cors());
+app.use(cors());
 
 // routes and api calls
 app.use('/health', healthRoutes);
 app.use('/swagger', swaggerRoutes);
-//app.use('/test', testAPI);
+app.use('/test', testAPI);
 
 // default path to serve up index.html (single page application)
 app.all('', (req, res) => {
@@ -27,7 +27,7 @@ app.all('', (req, res) => {
 });
 
 // start node server
-//const port = process.env.PORT || 9000;
+const port = process.env.PORT || 9000;
 app.listen(port, () => {
   console.log(`App UI available http://localhost:${port}`);
   console.log(`Swagger UI available http://localhost:${port}/swagger/api-docs`);
